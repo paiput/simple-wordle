@@ -1,0 +1,32 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#word-table {
+  margin: auto;
+  border: 2px solid red;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  height: 4rem;
+  width: 4rem;
+  text-transform: uppercase;
+}
+
+input.col {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.row button[type="submit"] {
+  display: none;
+}

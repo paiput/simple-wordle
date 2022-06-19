@@ -29,7 +29,6 @@ let dict = [
 ];
 
 let hiddenWord = dict[Math.floor(Math.random()*dict.length)];
-console.log(hiddenWord);
 
 const wordFields = document.querySelectorAll("#word-table .row");
 const inputs = document.querySelectorAll("#word-table .col");
@@ -56,11 +55,28 @@ function showClues(result, field) {
 }
 
 function toggleInputs(field) {
-  for (const inpEl of field.children) {
-    if (inpEl.tagName === "INPUT") {
-      inpEl.disabled = field.currentAttempt ? false : true;
-    }
+  field.querySelectorAll(".col")
+    .forEach(inpEl => inpEl.disabled = field.currentAttempt ? false : true);
+}
+
+function checkResult(result) {
+  if (result.every(ans => ans === 1)) return true;
+  else return false; 
+}
+
+/**
+ * Muestra una alerta al finalizar el juego
+ * @param {Boolean} isCorrect - Indica si el usuario adivino la palabra
+ * @param {String} message - Mensaje que acompaña la alerta
+ */
+function showResultAlert(isCorrect = false, message = "Error") {
+  resultAlert.textContent = message;
+  if (isCorrect) {
+    resultAlert.classList.add("correct");
+  } else {
+    resultAlert.classList.add("wrong");
   }
+  resultAlert.classList.remove("hidden");
 }
 
 wordFields.forEach((field, index) => {
@@ -72,9 +88,7 @@ wordFields.forEach((field, index) => {
     ev.preventDefault();
     let word = "";
 
-    for (const inpEl of field.children) {
-      if (inpEl.tagName === "INPUT") word += inpEl.value;
-    }
+    field.querySelectorAll(".col").forEach(inpEl => word += inpEl.value);
     
     const result = checkChar(word);
     showClues(result, field);
@@ -83,10 +97,16 @@ wordFields.forEach((field, index) => {
     field.currentAttempt = false;
     toggleInputs(field);
 
-    if (field.nextElementSibling != null) {
-      field.nextElementSibling.currentAttempt = true;
-      toggleInputs(field.nextElementSibling);
-      field.nextElementSibling.firstElementChild.focus();
+    if (checkResult(result)) {
+      showResultAlert(true, "Bien hecho");
+    } else {
+      if (field.nextElementSibling != null) {
+        field.nextElementSibling.currentAttempt = true;
+        toggleInputs(field.nextElementSibling);
+        field.nextElementSibling.firstElementChild.focus();
+      } else {
+        showResultAlert(false, "Te quedaste sin intentos");
+      }
     }
   });
 

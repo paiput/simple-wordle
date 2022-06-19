@@ -1,3 +1,7 @@
+:root {
+  --ff: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+}
+
 *,
 *::before,
 *::after {
@@ -6,9 +10,26 @@
   padding: 0;
 }
 
+body {
+  min-height: 100vh;
+}
+
 #word-table {
   margin: auto;
-  border: 2px solid red;
+}
+
+h1 {
+  border-bottom: 2px solid green;
+  font-family: var(--ff);
+  font-size: 2.5rem;
+  margin-bottom: 1em;
+  padding-block: 1em;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.main-content {
+  height: 100%;
 }
 
 .row {
@@ -28,5 +49,25 @@ input.col {
 }
 
 .row button[type="submit"] {
+  display: none;
+}
+
+.alert {
+  border-radius: 100vmax;
+  font-family: var(--ff);
+  margin: 2.5rem auto;
+  padding: 2em;
+  width: fit-content;
+}
+
+.correct {
+  border: 2px solid green;
+}
+
+.wrong {
+  border: 2px solid red;
+}
+
+.hidden {
   display: none;
 }

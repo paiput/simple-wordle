@@ -1,5 +1,8 @@
 :root {
-  --ff: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+  --ff: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  --clr-gray: #787C7E;
+  --clr-green: #6AAA64;
+  --clr-yellow: #C9B458;
 }
 
 *,
@@ -32,9 +35,18 @@ h1 {
   height: 100%;
 }
 
-.row {
+.row,
+.word-container {
   display: flex;
   justify-content: center;
+}
+
+form.row:first-child input.col {
+  border-top: 2px solid black;
+}
+
+form.row:last-child input.col {
+  border-bottom: 2px solid black;
 }
 
 .col {
@@ -46,6 +58,16 @@ h1 {
 input.col {
   text-align: center;
   font-size: 1.5rem;
+  border: solid black;
+  border-width: 1px;
+}
+
+input.col:first-child {
+  border-left: 2px solid black;
+}
+
+input.col:last-child {
+  border-right: 2px solid black;
 }
 
 .row button[type="submit"] {

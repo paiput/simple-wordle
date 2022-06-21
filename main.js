@@ -32,12 +32,6 @@ let dict = [
   'mesas'
 ];
 
-fetch("https://wordle.danielfrg.com/words/5.json")
-  .then(res => res.json())
-  .then(wordList => {
-    console.log(wordList);
-  });
-
 let hiddenWord = dict[Math.floor(Math.random()*dict.length)];
 
 const wordFields = document.querySelectorAll("#word-table .row");
@@ -58,9 +52,10 @@ function showClues(result, field) {
   const inputs = field.querySelectorAll(".col");
   
   inputs.forEach((input, index) => {
-    if (result[index] < 0) input.style.backgroundColor = "red";
-    else if (result[index] > 0) input.style.backgroundColor = "green";
-    else input.style.backgroundColor = "yellow";
+    input.style.color = "white";
+    if (result[index] < 0) input.style.backgroundColor = "var(--clr-gray)";
+    else if (result[index] > 0) input.style.backgroundColor = "var(--clr-green)";
+    else input.style.backgroundColor = "var(--clr-yellow)";
   });
 }
 
@@ -111,9 +106,9 @@ wordFields.forEach((field, index) => {
       showResultAlert(true, "Bien hecho");
     } else {
       if (field.nextElementSibling != null) {
-        field.nextElementSibling.currentAttempt = true;
-        toggleInputs(field.nextElementSibling);
-        field.nextElementSibling.firstElementChild.focus();
+        field.nextElementSibling.firstElementChild.currentAttempt = true;
+        toggleInputs(field.nextElementSibling.firstElementChild);
+        field.nextElementSibling.firstElementChild.firstElementChild.focus();
       } else {
         showResultAlert(false, "Te quedaste sin intentos");
       }
@@ -122,15 +117,14 @@ wordFields.forEach((field, index) => {
 
   field.addEventListener("keydown", ev => {
     const keyCode = ev.keyCode || ev.charCode;
+    const word = field.querySelector(".word-container");
 
-    // hace un submit al presionar enter
+    // hace un submit al presionar enter si la palabra esta completa
     if (keyCode === 13) {
       const submitBtn = field.querySelector("button[type='submit']");
-      
-      for (const inpEl of field.children) {
-        if (inpEl.tagName === "INPUT" && inpEl.value === "") {
-          return;
-        }
+
+      for (const inpEl of word.children) {
+        if (inpEl.value === "") return;
       }
 
       submitBtn.click();

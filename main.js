@@ -28,6 +28,12 @@ let dict = [
   'tigre'
 ];
 
+fetch("https://wordle.danielfrg.com/words/5.json")
+  .then(res => res.json())
+  .then(wordList => {
+    console.log(wordList);
+  });
+
 let hiddenWord = dict[Math.floor(Math.random()*dict.length)];
 
 const wordFields = document.querySelectorAll("#word-table .row");

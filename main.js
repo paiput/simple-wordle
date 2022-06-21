@@ -25,7 +25,11 @@ let dict = [
   'queso',
   'pesos',
   'barro',
-  'tigre'
+  'tigre',
+  'pasos',
+  'autos',
+  'silla',
+  'mesas'
 ];
 
 fetch("https://wordle.danielfrg.com/words/5.json")
